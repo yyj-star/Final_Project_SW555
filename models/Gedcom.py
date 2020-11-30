@@ -527,20 +527,20 @@ class Gedcom:
         return sorted
     "US 56 functions"
     def fix_child_to_family(self, individual, family):
-        from Individual import Individual
-        from Family import Family
-        ind.set_parentFamily(individual)
+        # from Individual import Individual
+        # from Family import Family
+        individual.set_parentFamily(family)
     def fix_family_to_child(self, individual, family):
-        from Individual import Individual
-        from Family import Family
+        # from Individual import Individual
+        # from Family import Family
         family.add_child(individual)
     def fix_parent_to_family(self, individual, family):
-        from Individual import Individual
-        from Family import Family
+        # from Individual import Individual
+        # from Family import Family
         individual.add_to_family(family)
     def fix_family_to_parent(self, individual, family):
-        from Individual import Individual
-        from Family import Family
+        # from Individual import Individual
+        # from Family import Family
         if(individual.get_gender()=="F"):
             family.set_wife(individual)
         else:
