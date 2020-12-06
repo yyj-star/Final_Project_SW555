@@ -116,7 +116,7 @@ class Individual:
             timedelta = date(*family.get_marriedDate()) - date(*self._birthDate)
             if (timedelta.days <= 0):
                 #return False
-                raise Error('ERROR', 'INDIVIDUAL', 'US02', self.get_lineNum()['BIRT'], f" Individual's Birthday {self.get_birthDate()} is after marriage date of Family {family.get_marriedDate()}")
+                raise Error('ERROR', 'INDIVIDUAL', 'US02', self.get_lineNum()['BIRT'] if "BIRT" in self.get_lineNum() else "N/A", f" Individual's Birthday {self.get_birthDate()} is after marriage date of Family {family.get_marriedDate()}")
         return True
 
     #US03 Birth should occur before death of an individual
@@ -126,7 +126,7 @@ class Individual:
 
         if (date(*self._deathDate) - date(*self._birthDate)).days > 0:
             return True
-        else: raise Error('ERROR', 'INDIVIDUAL', 'US03', self.get_lineNum()['BIRT'], f" Individual's Birthday {self.get_birthDate()} is after individual's death date {self.get_deathDate()}")
+        else: raise Error('ERROR', 'INDIVIDUAL', 'US03', self.get_lineNum()['BIRT'] if "BIRT" in self.get_lineNum() else "N/A", f" Individual's Birthday {self.get_birthDate()} is after individual's death date {self.get_deathDate()}")
 
     #US07 Death should be less than 150 years after birth for dead people, and current date should be less than 150 years after birth for all living people
     def less_then_150_years_old(self):
@@ -284,7 +284,7 @@ class Individual:
                     if child in spouse:
                         #return False
                         raise Error('ERROR', 'INDIVIDUAL', 'US17',
-                                    child.get_lineNum()['INDI ID'],
+                                    child.get_lineNum()['INDI ID'] if "IND ID" in child.get_lineNum() else "N/A",
                                     f"Parent is married to a descendant {child.get_id()}")
                     result = dfs(child) and result
             return result

@@ -340,7 +340,7 @@ class Family:
                 if not child.get_name(): raise AttributeError("Child's name is missing")
                 if child.get_name().split('/')[1] != last_name:
                     #return False
-                    raise Error('ERROR', 'FAMILY', 'US16', child.get_lineNum()['NAME'], f"Male Child's last name {child.get_name().split('/')[1]} doesn't match family last name {last_name}")
+                    raise Error('ERROR', 'FAMILY', 'US16', child.get_lineNum()['NAME'] if "NAME" in child.get_lineNum() else "N/A", f"Male Child's last name {child.get_name().split('/')[1]} doesn't match family last name {last_name}")
                 for fam in child.get_family():
                     flag = dfs(fam, check_last_name) and flag
             return flag
@@ -354,7 +354,7 @@ class Family:
             "Missing husband and wife parent")
         if not self._husband.get_parent_family().get_id() == self._wife.get_parent_family().get_id():
             return True
-        else:raise Error('ERROR', 'FAMILY', 'US18', self.get_lineNum()['FAM ID'], f"Siblings in family {self.get_id()} are married.")
+        else:raise Error('ERROR', 'FAMILY', 'US18', self.get_lineNum()['FAM ID'] if "FAM ID" in self.get_lineNum() else "N/A", f"Siblings in family {self.get_id()} are married.")
 
     #US28 List siblings in families by decreasing age, i.e. oldest siblings first
     def order_siblings_by_age(self):
